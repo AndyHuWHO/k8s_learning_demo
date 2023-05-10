@@ -4,6 +4,7 @@ metadata:
   name: app
   namespace: demo
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: app
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: //to be filled
+          image: andyyelinhu/world-cup-demo:latest
           env:
             - name: MARIA_USER
               value: root
@@ -25,8 +26,11 @@ spec:
                   key: token
             - name: WELCOME
               value: Welcome to FIFA World Cup 2022!! Lets talk about semifinalists ...
+            - name: FLASK_ENV
+                value: "development"
           volumeMounts:
             - name: app-src
               mountPath: /app
       volumes:
         - name: app-src
+          emptyDir: {}

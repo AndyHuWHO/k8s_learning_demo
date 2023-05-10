@@ -36,4 +36,4 @@ spec:
       volumes:
         - name: mariadata
           persistentVolumeClaim:
-            claimName: mariadata
+            claimName: mariadata-pvc
