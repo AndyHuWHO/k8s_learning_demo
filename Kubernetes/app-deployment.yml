@@ -23,11 +23,9 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: quickstart-maria-pass
-                  key: token
+                  key: password
             - name: WELCOME
               value: Welcome to FIFA World Cup 2022!! Lets talk about semifinalists ...
-            - name: FLASK_ENV
-                value: "development"
           volumeMounts:
             - name: app-src
               mountPath: /app

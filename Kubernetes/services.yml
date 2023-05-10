@@ -40,6 +40,6 @@ spec:
     app: app
   type: LoadBalancer
   ports:
-    - protocol: "HTTP"
+    - protocol: "TCP"
       port: 5000
       targetPort: 5000

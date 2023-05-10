@@ -24,16 +24,16 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: quickstart-maria-pass
-                  key: token
+                  key: password
             - name: MARIADB_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: quickstart-maria-pass
-                  key: token
+                  key: password
           volumeMounts:
             - name: mariadata
               mountPath: /var/lib/mysql
       volumes:
         - name: mariadata
           persistentVolumeClaim:
-            claimName: mariadata-pvc
+            claimName: mariadb-pvc
