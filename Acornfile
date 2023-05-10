@@ -1,0 +1,70 @@
+args: {
+  welcome: "Welcome to FIFA World Cup 2022!! Lets talk about semifinalists ..."
+}
+
+containers: {
+  app: {
+    build: "."
+    env: {
+      "MARIA_USER": "root"
+      "MARIA_PASS": "secret://quickstart-maria-pass/token"
+      "WELCOME": args.welcome
+      if args.dev { "FLASK_ENV": "development" }
+    }
+    dependsOn: [
+      "db",
+      "cache"
+    ]
+    if args.dev { dirs: "/app": "./" }
+    ports: publish: "5000/http"
+  }
+  cache: {
+    image: "redis:alpine"
+    ports: "6379/tcp"
+  }
+  db: {
+    image: "mariadb:10.6.8-focal"
+    env: {
+      "MARIADB_DATABASE": "acorn"
+      "MARIADB_USER": "maria"
+      "MARIADB_PASSWORD": "secret://quickstart-maria-pass/token"
+      "MARIADB_ROOT_PASSWORD": "secret://quickstart-maria-pass/token"
+    }
+    dirs: {
+      if !args.dev {
+        "/var/lib/mysql": "volume://mariadata?subpath=data"
+      }
+    }
+    files: {
+      "/docker-entrypoint-initdb.d/00-init.sql": "CREATE TABLE semifinalists (teams text);"
+      "/docker-entrypoint-initdb.d/01-teams.sql": std.join([for teams in localData.teams {"INSERT INTO semifinalists VALUES ('\(teams)');"}], "\n")
+    }
+    ports: "3306/tcp"
+  }
+}
+
+localData: {
+  teams: [
+    "Croatia",
+    "Argentina",
+    "France",
+    "Morocco"
+  ]
+}
+
+volumes: {
+  if !args.dev {
+    "mariadata": {
+      accessModes: "readWriteOnce"
+    }
+  }
+}
+
+secrets: {
+  "quickstart-maria-pass": {
+      type: "token"
+  }
+}
+
+//questions: 1. why no pods? app was running, on where? 2. how does k8s secretes work. 3. when was the value for the secret set?
+//
