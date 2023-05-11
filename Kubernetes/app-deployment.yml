@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: andyyelinhu/world-cup-demo:latest
+          image: andyyelinhu/world-cup-demo:3
           env:
             - name: MARIA_USER
               value: root
@@ -26,9 +26,9 @@ spec:
                   key: password
             - name: WELCOME
               value: Welcome to FIFA World Cup 2022!! Lets talk about semifinalists ...
-          volumeMounts:
-            - name: app-src
-              mountPath: /app
-      volumes:
-        - name: app-src
-          emptyDir: {}
+      #     volumeMounts:
+      #       - name: app-src
+      #         mountPath: /app/app.py
+      # volumes:
+      #   - name: app-src
+      #     emptyDir: {}
