@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-init-scripts
+  namespace: demo
+data:
+  00-init.sql: |
+    CREATE TABLE semifinalists (teams text);
+  01-teams.sql: |
+    INSERT INTO semifinalists VALUES ('team1');
+    INSERT INTO semifinalists VALUES ('team2');
+    INSERT INTO semifinalists VALUES ('team3');

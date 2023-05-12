@@ -33,7 +33,13 @@ spec:
           volumeMounts:
             - name: mariadata
               mountPath: /var/lib/mysql
+            - name: init-scripts
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true
       volumes:
         - name: mariadata
           persistentVolumeClaim:
             claimName: mariadb-pvc
+        - name: init-scripts
+          configMap:
+            name: db-init-scripts
