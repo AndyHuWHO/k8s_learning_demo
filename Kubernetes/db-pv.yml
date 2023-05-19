@@ -11,5 +11,5 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /path/to/mariadb-data
+    path: /path/andy-mariadb-data
     type: DirectoryOrCreate

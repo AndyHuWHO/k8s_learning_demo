@@ -15,14 +15,16 @@ spec:
     spec:
       containers:
         - name: app
-          image: andyyelinhu/world-cup-demo:3
+          image: andyyelinhu/world-cup-demo:andydb
           env:
+            - name: MARIA_HOST
+              value: 'db-service.demo.svc.cluster.local'
             - name: MARIA_USER
               value: root
             - name: MARIA_PASS
               valueFrom:
                 secretKeyRef:
-                  name: quickstart-maria-pass
+                  name: quick-pass
                   key: password
             - name: WELCOME
               value: Welcome to FIFA World Cup 2022!! Lets talk about semifinalists ...

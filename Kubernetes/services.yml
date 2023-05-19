@@ -5,8 +5,8 @@ metadata:
   namespace: demo
 spec:
   selector:
-    app: db
-  type: ClusterIP
+    app: andy-db
+  type: LoadBalancer
   ports:
     - protocol: "TCP"
       port: 3306

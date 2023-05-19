@@ -7,6 +7,6 @@ data:
   00-init.sql: |
     CREATE TABLE semifinalists (teams text);
   01-teams.sql: |
-    INSERT INTO semifinalists VALUES ('team1');
-    INSERT INTO semifinalists VALUES ('team2');
-    INSERT INTO semifinalists VALUES ('team3');
+    INSERT INTO semifinalists VALUES ('China');
+    INSERT INTO semifinalists VALUES ('France');
+    INSERT INTO semifinalists VALUES ('Canada');

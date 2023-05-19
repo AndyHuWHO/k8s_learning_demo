@@ -1,45 +1,44 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: db
+  name: andy-db
   namespace: demo
 spec:
   selector:
     matchLabels:
-      app: db
+      app: andy-db
   template:
     metadata:
       labels:
-        app: db
+        app: andy-db
     spec:
       containers:
-        - name: db
+        - name: andy-db
           image: mariadb:10.6.8-focal
           env:
             - name: MARIADB_DATABASE
-              value: demo-db
+              value: andy-db
             - name: MARIADB_USER
-              value: maria
+              value: andy
             - name: MARIADB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: quickstart-maria-pass
+                  name: quick-pass
                   key: password
             - name: MARIADB_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: quickstart-maria-pass
+                  name: quick-pass
                   key: password
           volumeMounts:
-            - name: mariadata
-              mountPath: /var/lib/mysql
+            # - name: mariadata
+            #   mountPath: /var/lib/mysql
             - name: init-scripts
               mountPath: /docker-entrypoint-initdb.d
-              readOnly: true
       volumes:
-        - name: mariadata
-          persistentVolumeClaim:
-            claimName: mariadb-pvc
+        # - name: mariadata
+        #   persistentVolumeClaim:
+        #     claimName: mariadb-pvc
         - name: init-scripts
           configMap:
             name: db-init-scripts

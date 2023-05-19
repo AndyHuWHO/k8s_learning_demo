@@ -32,8 +32,8 @@ def root():
 
 def db_get_teams():
     conn = mariadb.connect(
-        host="db-service.demo.svc.cluster.local",
-        database="demo-db",
+        host=os.environ['MARIA_HOST'],
+        database="andy-db",
         user=os.environ['MARIA_USER'],
         password=os.environ['MARIA_PASS'],
     )
