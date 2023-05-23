@@ -43,3 +43,6 @@ spec:
     - protocol: "TCP"
       port: 5000
       targetPort: 5000
+  # dependsOn:
+  #   - name: cache-service
+  #   - name: db-service

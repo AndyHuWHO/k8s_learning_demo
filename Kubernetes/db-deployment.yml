@@ -31,14 +31,14 @@ spec:
                   name: quick-pass
                   key: password
           volumeMounts:
-            # - name: mariadata
-            #   mountPath: /var/lib/mysql
+            - name: mariadata
+              mountPath: /var/lib/mysql
             - name: init-scripts
               mountPath: /docker-entrypoint-initdb.d
       volumes:
-        # - name: mariadata
-        #   persistentVolumeClaim:
-        #     claimName: mariadb-pvc
+        - name: mariadata
+          persistentVolumeClaim:
+            claimName: mariadb-pvc
         - name: init-scripts
           configMap:
             name: db-init-scripts
