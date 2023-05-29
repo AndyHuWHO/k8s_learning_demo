@@ -4,9 +4,14 @@ metadata:
   name: db-init-scripts
   namespace: demo
 data:
-  00-init.sql: |
-    CREATE TABLE semifinalists (teams text);
+  # 00-init.sql: |
+  #   CREATE TABLE semifinalists (teams text);
+  # 01-teams.sql: |
+  #   INSERT INTO semifinalists VALUES ('China');
+  #   INSERT INTO semifinalists VALUES ('France');
+  #   INSERT INTO semifinalists VALUES ('Canada');
   01-teams.sql: |
-    INSERT INTO semifinalists VALUES ('China');
-    INSERT INTO semifinalists VALUES ('France');
-    INSERT INTO semifinalists VALUES ('Canada');
+    CREATE TABLE goatplayers (player text);
+    INSERT INTO goatplayers VALUES ('MJ');
+    INSERT INTO goatplayers VALUES ('LBJ');
+    INSERT INTO goatplayers VALUES ('KOBE');
