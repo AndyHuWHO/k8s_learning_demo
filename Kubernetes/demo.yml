@@ -74,16 +74,16 @@ kind: Deployment
 metadata:
   name: andy-db
   namespace: andy-demo
-  annotations:
-    argocd.argoproj.io/hook: PostSync
-    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
-    argocd.argoproj.io/hook-parameters: |
-      [
-        {
-          "name": "RESTART_AT",
-          "value": "PostSync"
-        }
-      ]
+  # annotations:
+  #   argocd.argoproj.io/hook: PostSync
+  #   argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+  #   argocd.argoproj.io/hook-parameters: |
+  #     [
+  #       {
+  #         "name": "RESTART_AT",
+  #         "value": "PostSync"
+  #       }
+  #     ]
 spec:
   selector:
     matchLabels:
@@ -163,7 +163,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: andyyelinhu/nba-demo:3
+          image: andyyelinhu/nba-demo:2
           env:
             - name: MARIA_HOST
               value: 'db-service.andy-demo.svc.cluster.local'
