@@ -8,7 +8,7 @@ from flask import Flask, render_template_string
 page_template = '''
         <div style="margin: auto; text-align: center;">
         <h1>{{ welcome_text }}</h1><br>
-        You're visitor #{{ visitors }} to view Andy Hu's Top 6 NBA GOAT players:<br>
+        You're the #{{ visitors }} visitor to view Andy Hu's Top NBA GOAT players:<br>
         <ul>
             {%- for team in teams %}
             <li>{{ team }}</li>
