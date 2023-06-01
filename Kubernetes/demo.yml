@@ -57,6 +57,7 @@ metadata:
   namespace: andy-demo
 data:
   01-goat.sql: |
+    DROP TABLE IF EXISTS goatplayers;
     CREATE TABLE goatplayers (player text);
     INSERT INTO goatplayers VALUES ('MJ');
     INSERT INTO goatplayers VALUES ('LBJ');
