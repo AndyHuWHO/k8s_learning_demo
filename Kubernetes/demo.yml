@@ -153,7 +153,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: andyyelinhu/nba-demo:1
+          image: andyyelinhu/nba-demo:2
           env:
             - name: MARIA_HOST
               value: 'db-service.andy-demo.svc.cluster.local'
@@ -165,7 +165,7 @@ spec:
                   name: quick-pass
                   key: password
             - name: WELCOME
-              value: Welcome to Andy Hu's NBA Top 5 GOAT Player rating!!!!! 
+              value: Welcome to Andy Hu's NBA Top 6 GOAT Player rating!!!!! 
       #     volumeMounts:
       #       - name: app-src
       #         mountPath: /app/app.py
