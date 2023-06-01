@@ -62,8 +62,8 @@ data:
     INSERT INTO goatplayers VALUES ('LBJ');
     INSERT INTO goatplayers VALUES ('KOBE');
     INSERT INTO goatplayers VALUES ('Shaq');
-    INSERT INTO goatplayers VALUES ('Tim');
-    INSERT INTO goatplayers VALUES ('Andy');
+    INSERT INTO goatplayers VALUES ('Tim Duncan');
+    
 
 
 ---
@@ -152,7 +152,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: andyyelinhu/nba-demo:2
+          image: andyyelinhu/nba-demo:1
           env:
             - name: MARIA_HOST
               value: 'db-service.andy-demo.svc.cluster.local'
@@ -164,7 +164,7 @@ spec:
                   name: quick-pass
                   key: password
             - name: WELCOME
-              value: Welcome to Andy Hu's NBA Top 6 GOAT Player rating!! 
+              value: Welcome to Andy Hu's NBA Top 5 GOAT Player rating!!!!! 
       #     volumeMounts:
       #       - name: app-src
       #         mountPath: /app/app.py
