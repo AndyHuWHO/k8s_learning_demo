@@ -8,7 +8,7 @@ from flask import Flask, render_template_string
 page_template = '''
         <div style="margin: auto; text-align: center;">
         <h1>{{ welcome_text }}</h1><br>
-        You're visitor #{{ visitors }} to view Andy Hu's Top 5 NBA GOAT players:<br>
+        You're visitor #{{ visitors }} to view Andy Hu's Top 6 NBA GOAT players:<br>
         <ul>
             {%- for team in teams %}
             <li>{{ team }}</li>
@@ -26,7 +26,7 @@ def root():
     visitors = cache_get_visitor_count()
     team = db_get_teams()
 
-    return render_template_string(page_template, visitors=visitors, teams=team, welcome_text=os.getenv("WELCOME", "Hey Football Fanatic!"))
+    return render_template_string(page_template, visitors=visitors, teams=team, welcome_text=os.getenv("WELCOME", "Hey NBA Fanatic!"))
 
 
 
