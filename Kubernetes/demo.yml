@@ -101,15 +101,15 @@ spec:
                 secretKeyRef:
                   name: quick-pass
                   key: password
-          volumeMounts:
-            - name: mariadata
-              mountPath: /var/lib/mysql
+          # volumeMounts:
+          #   - name: mariadata
+          #     mountPath: /var/lib/mysql
             - name: init-scripts
               mountPath: /docker-entrypoint-initdb.d
       volumes:
-        - name: mariadata
-          persistentVolumeClaim:
-            claimName: mariadb-pvc
+        # - name: mariadata
+        #   persistentVolumeClaim:
+        #     claimName: mariadb-pvc
         - name: init-scripts
           configMap:
             name: db-init-scripts
@@ -166,12 +166,7 @@ spec:
                   key: password
             - name: WELCOME
               value: Welcome to Andy Hu's NBA Top 5 GOAT Player rating!!!!! 
-      #     volumeMounts:
-      #       - name: app-src
-      #         mountPath: /app/app.py
-      # volumes:
-      #   - name: app-src
-      #     emptyDir: {}
+
 
 ---
 
@@ -220,6 +215,3 @@ spec:
     - protocol: "TCP"
       port: 5000
       targetPort: 5000
-  # dependsOn:
-  #   - name: cache-service
-  #   - name: db-service
