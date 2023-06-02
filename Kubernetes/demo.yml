@@ -62,7 +62,7 @@ data:
     INSERT INTO goatplayers VALUES ('MJ');
     INSERT INTO goatplayers VALUES ('LBJ');
     INSERT INTO goatplayers VALUES ('KOBE');
-    INSERT INTO goatplayers VALUES ('Shaq O'neal');
+    INSERT INTO goatplayers VALUES ('Shaq Oneal');
     INSERT INTO goatplayers VALUES ('Tim Duncan');
     
 
@@ -72,23 +72,23 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: andy-argo-db
+  name: andy-argo-db1
   namespace: andy-demo
 spec:
   selector:
     matchLabels:
-      app: andy-argo-db
+      app: andy-argo-db1
   template:
     metadata:
       labels:
-        app: andy-argo-db
+        app: andy-argo-db1
     spec:
       containers:
-        - name: andy-argo-db
+        - name: andy-argo-db1
           image: mariadb:10.6.8-focal
           env:
             - name: MARIADB_DATABASE
-              value: andy-argo-db
+              value: andy-argo-db1
             - name: MARIADB_USER
               value: andy
             - name: MARIADB_PASSWORD
@@ -153,7 +153,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: andyyelinhu/nba-demo:4
+          image: andyyelinhu/nba-demo:5
           env:
             - name: MARIA_HOST
               value: 'db-service.andy-demo.svc.cluster.local'
@@ -177,7 +177,7 @@ metadata:
   namespace: andy-demo
 spec:
   selector:
-    app: andy-argo-db
+    app: andy-argo-db1
   type: LoadBalancer
   ports:
     - protocol: "TCP"

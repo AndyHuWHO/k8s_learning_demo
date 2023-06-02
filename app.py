@@ -33,7 +33,7 @@ def root():
 def db_get_teams():
     conn = mariadb.connect(
         host=os.environ['MARIA_HOST'],
-        database="andy-argo-db",
+        database="andy-argo-db1",
         user=os.environ['MARIA_USER'],
         password=os.environ['MARIA_PASS'],
     )
