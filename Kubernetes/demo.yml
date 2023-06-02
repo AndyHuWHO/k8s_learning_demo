@@ -74,16 +74,6 @@ kind: Deployment
 metadata:
   name: andy-db
   namespace: andy-demo
-  # annotations:
-  #   argocd.argoproj.io/hook: PostSync
-  #   argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
-  #   argocd.argoproj.io/hook-parameters: |
-  #     [
-  #       {
-  #         "name": "RESTART_AT",
-  #         "value": "PostSync"
-  #       }
-  #     ]
 spec:
   selector:
     matchLabels:
@@ -112,14 +102,14 @@ spec:
                   name: quick-pass
                   key: password
           volumeMounts:
-            # - name: mariadata
-            #   mountPath: /var/lib/mysql
+            - name: mariadata
+              mountPath: /var/lib/mysql
             - name: init-scripts
               mountPath: /docker-entrypoint-initdb.d
       volumes:
-        # - name: mariadata
-        #   persistentVolumeClaim:
-        #     claimName: mariadb-pvc
+        - name: mariadata
+          persistentVolumeClaim:
+            claimName: mariadb-pvc
         - name: init-scripts
           configMap:
             name: db-init-scripts
