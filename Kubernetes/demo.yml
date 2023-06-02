@@ -175,7 +175,7 @@ spec:
                   name: quick-pass
                   key: password
             - name: WELCOME
-              value: Welcome to Andy Hu's NBA Top GOAT Player rating!!!!! 
+              value: Welcome to Andy Hu's NBA Top 5 GOAT Player rating!!!!! 
       #     volumeMounts:
       #       - name: app-src
       #         mountPath: /app/app.py
