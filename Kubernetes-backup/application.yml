@@ -1,0 +1,22 @@
+apiVersion:  argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: andy-argo-demo
+  namespace: argocd
+spec:
+  project: default 
+  source:
+    repoURL: https://github.com/neurio/andy-k8s-learning-demo.git
+    targetRevision: HEAD
+    path: Kubernetes
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: andy-demo
+  
+  syncPolicy:
+    syncOptions:  
+    - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
