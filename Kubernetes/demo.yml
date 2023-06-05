@@ -64,7 +64,7 @@ data:
     INSERT INTO goatplayers VALUES ('KOBE Bryant');
     INSERT INTO goatplayers VALUES ('Shaq Oneal');
     INSERT INTO goatplayers VALUES ('Tim Duncan');
-    INSERT INTO goatplayers VALUES ('Andy');
+
 
 ---
 apiVersion: v1
@@ -130,7 +130,7 @@ spec:
         #     claimName: mariadb-pvc
         - name: init-scripts
           configMap:
-            name: db-init-scripts-1
+            name: db-init-scripts
 
 ---
 
@@ -183,7 +183,7 @@ spec:
                   name: quick-pass
                   key: password
             - name: WELCOME
-              value: Welcome to Andy Hu's NBA Top 6 GOAT Player rating!!!!! 
+              value: Welcome to Andy Hu's NBA Top 5 GOAT Player rating!!!!! 
 
 
 ---
