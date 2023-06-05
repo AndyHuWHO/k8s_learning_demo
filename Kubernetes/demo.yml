@@ -64,6 +64,7 @@ data:
     INSERT INTO goatplayers VALUES ('KOBE Bryant');
     INSERT INTO goatplayers VALUES ('Shaq Oneal');
     INSERT INTO goatplayers VALUES ('Tim Duncan');
+    INSERT INTO goatplayers VALUES ('Andy Hu');
 
 
 ---
@@ -183,7 +184,7 @@ spec:
                   name: quick-pass
                   key: password
             - name: WELCOME
-              value: Welcome to Andy Hu's NBA Top 5 GOAT Player rating!!!!! 
+              value: Welcome to Andy Hu's NBA Top 6 GOAT Player rating!!!!! 
 
 
 ---
