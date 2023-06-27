@@ -1,0 +1,264 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: andy-rollout-demo
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: quick-pass
+  namespace: andy-rollout-demo
+type: Opaque
+data:
+  password: QW5keUh1MTExMSE=
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mariadb-pv
+  namespace: andy-rollout-demo
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  storageClassName: standard 
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /path/andy-mariadb-data
+    type: DirectoryOrCreate
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mariadb-pvc
+  namespace: andy-rollout-demo
+spec:
+  volumeName: mariadb-pv
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: standard
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-init-scripts
+  namespace: andy-rollout-demo
+data:
+  01-goat.sql: |
+    DROP TABLE IF EXISTS goatplayers;
+    CREATE TABLE goatplayers (player text);
+    INSERT INTO goatplayers VALUES ('MJ');
+    INSERT INTO goatplayers VALUES ('LBJ');
+    INSERT INTO goatplayers VALUES ('KOBE Bryant');
+    INSERT INTO goatplayers VALUES ('Shaq Oneal');
+    INSERT INTO goatplayers VALUES ('Tim Duncan');
+
+
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-init-scripts-1
+  namespace: andy-rollout-demo
+data:
+  01-goat.sql: |
+    DROP TABLE IF EXISTS goatplayers;
+    CREATE TABLE goatplayers (player text);
+    INSERT INTO goatplayers VALUES ('MJ');
+    INSERT INTO goatplayers VALUES ('MJ');
+    INSERT INTO goatplayers VALUES ('MJ');
+    INSERT INTO goatplayers VALUES ('MJ');
+    INSERT INTO goatplayers VALUES ('MJ');
+    INSERT INTO goatplayers VALUES ('MJ');
+
+    
+
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: andy-argo-db1
+  namespace: andy-rollout-demo
+spec:
+  selector:
+    matchLabels:
+      app: andy-argo-db1
+  template:
+    metadata:
+      labels:
+        app: andy-argo-db1
+    spec:
+      containers:
+        - name: andy-argo-db1
+          image: mariadb:10.6.8-focal
+          env:
+            - name: MARIADB_DATABASE
+              value: andy-argo-db1
+            - name: MARIADB_USER
+              value: andy
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: quick-pass
+                  key: password
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: quick-pass
+                  key: password
+          volumeMounts:
+          #   - name: mariadata
+          #     mountPath: /var/lib/mysql
+            - name: init-scripts
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        # - name: mariadata
+        #   persistentVolumeClaim:
+        #     claimName: mariadb-pvc
+        - name: init-scripts
+          configMap:
+            name: db-init-scripts
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cache
+  namespace: andy-rollout-demo
+spec:
+  selector:
+    matchLabels:
+      app: cache
+  template:
+    metadata:
+      labels:
+        app: cache
+    spec:
+      containers:
+        - name: cache
+          image: redis:alpine
+
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: rollout-app
+  namespace: andy-rollout-demo
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: app
+          image: andyyelinhu/argo-rollout-demo:6players
+          imagePullPolicy: Always
+          env:
+            - name: MARIA_HOST
+              value: 'db-service.andy-rollout-demo.svc.cluster.local'
+            - name: MARIA_USER
+              value: root
+            - name: MARIA_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: quick-pass
+                  key: password
+            - name: WELCOME
+              value: Welcome to Andy Hu's NBA Top 6 GOAT Player rating!!!!! 
+  strategy:
+    canary:
+     steps:
+      - setWeight: 20
+      - pause: {}
+      - setWeight: 40
+      - pause: {duration: 10}
+      - setWeight: 60
+      - pause: {duration: 10}
+      - setWeight: 80
+      - pause: {duration: 10}
+  revisionHistoryLimit: 2
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-service
+  namespace: andy-rollout-demo
+spec:
+  selector:
+    app: andy-argo-db1
+  type: LoadBalancer
+  ports:
+    - protocol: "TCP"
+      port: 3306
+      targetPort: 3306
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: cache-service
+  namespace: andy-rollout-demo
+spec:
+  selector:
+    app: cache
+  type: ClusterIP
+  ports:
+    - protocol: "TCP"
+      port: 6379
+      targetPort: 6379
+
+---
+
+apiVersion: v1
+kind: Service 
+metadata:
+  name: app-service-active
+  namespace: andy-rollout-demo
+spec:
+  selector:
+    app: app
+  type: LoadBalancer
+  ports:
+    - protocol: "TCP"
+      port: 5001
+      targetPort: 5000
+---
+
+apiVersion: v1
+kind: Service 
+metadata:
+  name: app-service-preview
+  namespace: andy-rollout-demo
+spec:
+  selector:
+    app: app
+  type: LoadBalancer
+  ports:
+    - protocol: "TCP"
+      port: 5000
+      targetPort: 5000
