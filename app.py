@@ -39,7 +39,6 @@ def db_get_teams():
     )
 
     cur = conn.cursor()
-    # cur.execute("SELECT teams FROM semifinalists;")
     cur.execute("SELECT player FROM goatplayers;")
 
     return [x[0] for x in cur.fetchall()] 

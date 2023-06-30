@@ -247,18 +247,18 @@ spec:
     - protocol: "TCP"
       port: 5001
       targetPort: 5000
----
+# ---
 
-apiVersion: v1
-kind: Service 
-metadata:
-  name: app-service-preview
-  namespace: andy-rollout-demo
-spec:
-  selector:
-    app: app
-  type: LoadBalancer
-  ports:
-    - protocol: "TCP"
-      port: 5000
-      targetPort: 5000
+# apiVersion: v1
+# kind: Service 
+# metadata:
+#   name: app-service-preview
+#   namespace: andy-rollout-demo
+# spec:
+#   selector:
+#     app: app
+#   type: LoadBalancer
+#   ports:
+#     - protocol: "TCP"
+#       port: 5000
+#       targetPort: 5000

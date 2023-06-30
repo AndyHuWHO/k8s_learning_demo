@@ -77,12 +77,12 @@ data:
   01-goat.sql: |
     DROP TABLE IF EXISTS goatplayers;
     CREATE TABLE goatplayers (player text);
-    INSERT INTO goatplayers VALUES ('MJ');
-    INSERT INTO goatplayers VALUES ('MJ');
-    INSERT INTO goatplayers VALUES ('MJ');
-    INSERT INTO goatplayers VALUES ('MJ');
-    INSERT INTO goatplayers VALUES ('MJ');
-    INSERT INTO goatplayers VALUES ('MJ');
+    INSERT INTO goatplayers VALUES ('MJ1');
+    INSERT INTO goatplayers VALUES ('MJ2');
+    INSERT INTO goatplayers VALUES ('MJ3');
+    INSERT INTO goatplayers VALUES ('MJ4');
+    INSERT INTO goatplayers VALUES ('MJ5');
+    INSERT INTO goatplayers VALUES ('MJ6');
 
     
 
@@ -134,6 +134,48 @@ spec:
           configMap:
             name: db-init-scripts
 
+# ---
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: andy-argo-db2
+#   namespace: andy-rollout-demo
+# spec:
+#   selector:
+#     matchLabels:
+#       app: andy-argo-db2
+#   template:
+#     metadata:
+#       labels:
+#         app: andy-argo-db2
+#     spec:
+#       containers:
+#         - name: andy-argo-db2
+#           image: mariadb:10.6.8-focal
+#           env:
+#             - name: MARIADB_DATABASE
+#               value: andy-argo-db2
+#             - name: MARIADB_USER
+#               value: andy
+#             - name: MARIADB_PASSWORD
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: quick-pass
+#                   key: password
+#             - name: MARIADB_ROOT_PASSWORD
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: quick-pass
+#                   key: password
+#           volumeMounts:
+#             - name: init-scripts
+#               mountPath: /docker-entrypoint-initdb.d
+#       volumes:
+#         - name: init-scripts
+#           configMap:
+#             name: db-init-scripts-1
+
 ---
 
 apiVersion: apps/v1
@@ -173,7 +215,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: andyyelinhu/argo-rollout-demo:6players
+          image: andyyelinhu/argo-rollout-demo:bg5p
           imagePullPolicy: Always
           env:
             - name: MARIA_HOST
@@ -186,7 +228,7 @@ spec:
                   name: quick-pass
                   key: password
             - name: WELCOME
-              value: Welcome to Andy Hu's NBA Top 6 GOAT Player rating!!!!! 
+              value: Welcome to Andy Hu's NBA Top 5 GOAT Player rating!!!!! 
   strategy:
     blueGreen:
       activeService: app-service-active
@@ -208,6 +250,22 @@ spec:
     - protocol: "TCP"
       port: 3306
       targetPort: 3306
+
+# ---
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: db-service2
+#   namespace: andy-rollout-demo
+# spec:
+#   selector:
+#     app: andy-argo-db2
+#   type: LoadBalancer
+#   ports:
+#     - protocol: "TCP"
+#       port: 3307
+#       targetPort: 3307
 
 ---
 
