@@ -8,7 +8,7 @@ from flask import Flask, render_template_string
 page_template = '''
         <div style="margin: auto; text-align: center;">
         <h1>{{ welcome_text }}</h1><br>
-        You're the #{{ visitors }} visitor to view Andy Hu's Top 5 NBA GOAT players:<br>
+        You're the #{{ visitors }} visitor to view Andy Hu's Top 6 NBA GOAT players:<br>
         <ul>
             {%- for team in teams %}
             <li>{{ team }}</li>
@@ -33,7 +33,8 @@ def root():
 def db_get_teams():
     conn = mariadb.connect(
         host=os.environ['MARIA_HOST'],
-        database="andy-argo-db1",
+        database="andy-argo-db2",
+        port=3307,
         user=os.environ['MARIA_USER'],
         password=os.environ['MARIA_PASS'],
     )
