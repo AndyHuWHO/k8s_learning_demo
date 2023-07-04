@@ -34,7 +34,8 @@ def db_get_teams():
     conn = mariadb.connect(
         host=os.environ['MARIA_HOST'],
         database="andy-argo-db2",
-        port=3307,
+        # for new db service
+        port=3307, 
         user=os.environ['MARIA_USER'],
         password=os.environ['MARIA_PASS'],
     )

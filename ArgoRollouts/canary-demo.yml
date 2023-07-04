@@ -134,6 +134,49 @@ spec:
           configMap:
             name: db-init-scripts
 
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: andy-argo-db2
+  namespace: andy-rollout-demo
+spec:
+  selector:
+    matchLabels:
+      app: andy-argo-db2
+  template:
+    metadata:
+      labels:
+        app: andy-argo-db2
+    spec:
+      containers:
+        - name: andy-argo-db2
+          image: mariadb:10.6.8-focal
+          env:
+            - name: MARIADB_DATABASE
+              value: andy-argo-db2
+            - name: MARIADB_USER
+              value: andy
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: quick-pass
+                  key: password
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: quick-pass
+                  key: password
+          volumeMounts:
+            - name: init-scripts
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: init-scripts
+          configMap:
+            name: db-init-scripts-1 
+
 ---
 
 apiVersion: apps/v1
@@ -177,7 +220,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: MARIA_HOST
-              value: 'db-service.andy-rollout-demo.svc.cluster.local'
+              value: 'db-service2.andy-rollout-demo.svc.cluster.local'
             - name: MARIA_USER
               value: root
             - name: MARIA_PASS
@@ -186,7 +229,7 @@ spec:
                   name: quick-pass
                   key: password
             - name: WELCOME
-              value: Welcome to Andy Hu's NBA Top 6 GOAT Player rating!!!!! 
+              value: Welcome to Andy Hu's NBA Top 6 GOAT Player rating!!!! 
   strategy:
     canary:
      steps:
@@ -214,6 +257,23 @@ spec:
   ports:
     - protocol: "TCP"
       port: 3306
+      targetPort: 3306
+
+  
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-service2
+  namespace: andy-rollout-demo
+spec:
+  selector:
+    app: andy-argo-db2
+  type: LoadBalancer
+  ports:
+    - protocol: "TCP"
+      port: 3307
       targetPort: 3306
 
 ---
@@ -247,18 +307,4 @@ spec:
     - protocol: "TCP"
       port: 5001
       targetPort: 5000
-# ---
 
-# apiVersion: v1
-# kind: Service 
-# metadata:
-#   name: app-service-preview
-#   namespace: andy-rollout-demo
-# spec:
-#   selector:
-#     app: app
-#   type: LoadBalancer
-#   ports:
-#     - protocol: "TCP"
-#       port: 5000
-#       targetPort: 5000
