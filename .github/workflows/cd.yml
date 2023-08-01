@@ -23,6 +23,6 @@ jobs:
           kubectl apply -f demo.yml
       
       - name: Check Pods
-        run: kubectl get pods -n andy-demo
+        run: kubectl get ns
 
       
