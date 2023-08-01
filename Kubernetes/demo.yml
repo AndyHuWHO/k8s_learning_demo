@@ -161,7 +161,7 @@ metadata:
   name: app
   namespace: andy-demo
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: app
