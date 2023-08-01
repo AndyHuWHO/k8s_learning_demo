@@ -12,16 +12,14 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Change Working Directory
-        run: |
-          cd /Users/andyhu/Documents/Generac/andy-k8s-learning-demo/Kubernetes
-          ls
-
       - name: start minikube
         run: minikube start
 
       - name: Apply Kubernetes Manifest
-        run: kubectl apply -f demo.yml
+        run: |
+          cd /Users/andyhu/Documents/Generac/andy-k8s-learning-demo/Kubernetes
+          ls
+          kubectl apply -f demo.yml
       
       - name: Check Pods
         run: kubectl get pods -n andy-demo
