@@ -13,7 +13,9 @@ jobs:
 
     steps:
       - name: Change Working Directory
-        run: cd /Users/andyhu/Documents/Generac/andy-k8s-learning-demo/Kubernetes
+        run: |
+          cd /Users/andyhu/Documents/Generac/andy-k8s-learning-demo/Kubernetes
+          ls
 
       - name: start minikube
         run: minikube start
