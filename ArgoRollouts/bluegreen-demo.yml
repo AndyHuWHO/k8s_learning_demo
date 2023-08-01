@@ -176,49 +176,6 @@ spec:
           configMap:
             name: db-init-scripts-1 
 
-# ---
-
-# apiVersion: argoproj.io/v1alpha1
-# kind: Rollout
-# metadata:
-#   name: andy-argo-db1
-#   namespace: andy-rollout-demo
-# spec:
-#   selector:
-#     matchLabels:
-#       app: andy-argo-db1
-#   template:
-#     metadata:
-#       labels:
-#         app: andy-argo-db1
-#     spec:
-#       containers:
-#         - name: andy-argo-db1
-#           image: mariadb:10.6.8-focal
-#           env:
-#             - name: MARIADB_DATABASE
-#               value: andy-argo-db2
-#             - name: MARIADB_USER
-#               value: andy
-#             - name: MARIADB_PASSWORD
-#               valueFrom:
-#                 secretKeyRef:
-#                   name: quick-pass
-#                   key: password
-#             - name: MARIADB_ROOT_PASSWORD
-#               valueFrom:
-#                 secretKeyRef:
-#                   name: quick-pass
-#                   key: password
-#           volumeMounts:
-#             - name: init-scripts
-#               mountPath: /docker-entrypoint-initdb.d
-#       volumes:
-#         - name: init-scripts
-#           configMap:
-#             name: db-init-scripts
-
-
 
 
 ---
@@ -260,11 +217,11 @@ spec:
     spec:
       containers:
         - name: app
-          image: andyyelinhu/argo-rollout-demo:bg6p
+          image: andyyelinhu/argo-rollout-demo:bg5p
           imagePullPolicy: Always
           env:
             - name: MARIA_HOST
-              value: 'db-service2.andy-rollout-demo.svc.cluster.local'
+              value: 'db-service.andy-rollout-demo.svc.cluster.local'
             - name: MARIA_USER
               value: root
             - name: MARIA_PASS
