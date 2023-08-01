@@ -1,0 +1,27 @@
+name: deploy on local minikube ClusterIP
+on:
+  push:
+    branches: 
+      - main
+    paths:
+      - 'app.py'
+      - 'Kubernetes/**'
+
+jobs:
+  deploy_and_check_pods:
+    runs-on: self-hosted
+
+    steps:
+      - name: Change Working Directory
+        run: cd /Users/andyhu/Documents/Generac/andy-k8s-learning-demo/Kubernetes
+
+      - name: start minikube
+        run: minikube start
+
+      - name: Apply Kubernetes Manifest
+        run: kubectl apply -f demo.yml
+      
+      - name: Check Pods
+        run: kubectl get pods -n andy-demo
+
+      
