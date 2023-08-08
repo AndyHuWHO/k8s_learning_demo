@@ -64,7 +64,6 @@ data:
     INSERT INTO goatplayers VALUES ('KOBE Bryant');
     INSERT INTO goatplayers VALUES ('Shaq Oneal');
     INSERT INTO goatplayers VALUES ('Tim Duncan');
-    INSERT INTO goatplayers VALUES ('Andy Hu');
 
 
 ---
@@ -77,6 +76,7 @@ data:
   01-goat.sql: |
     DROP TABLE IF EXISTS goatplayers;
     CREATE TABLE goatplayers (player text);
+    INSERT INTO goatplayers VALUES ('MJ');
     INSERT INTO goatplayers VALUES ('MJ');
     INSERT INTO goatplayers VALUES ('MJ');
     INSERT INTO goatplayers VALUES ('MJ');
@@ -131,7 +131,7 @@ spec:
         #     claimName: mariadb-pvc
         - name: init-scripts
           configMap:
-            name: db-init-scripts
+            name: db-init-scripts-1
 
 ---
 
@@ -172,7 +172,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: andyyelinhu/nba-demo:5
+          image: andyyelinhu/nba-demo:6
           env:
             - name: MARIA_HOST
               value: 'db-service.andy-demo.svc.cluster.local'
@@ -184,7 +184,7 @@ spec:
                   name: quick-pass
                   key: password
             - name: WELCOME
-              value: Welcome to Andy Hu's NBA Top 5 GOAT Player rating!!!!! 
+              value: Welcome to Andy Hu's NBA Top 6 GOAT Player rating!!!!! 
 
 
 ---
