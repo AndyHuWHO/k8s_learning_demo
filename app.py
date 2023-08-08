@@ -19,7 +19,7 @@ page_template = '''
 
 app = Flask(__name__)
 # cache = redis.StrictRedis(host='cache-service', port=6379)
-cache = redis.StrictRedis(host='cache-service.andy-rollout-demo.svc.cluster.local', port=6379)
+cache = redis.StrictRedis(host='cache-service.andy-demo.svc.cluster.local', port=6379)
 
 @app.route('/')
 def root():
@@ -33,7 +33,7 @@ def root():
 def db_get_teams():
     conn = mariadb.connect(
         host=os.environ['MARIA_HOST'],
-        database="andy-argo-db2",
+        database="andy-argo-db1",
         # for new db service
         port=3307, 
         user=os.environ['MARIA_USER'],
