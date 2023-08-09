@@ -27,4 +27,4 @@ jobs:
           kubectl get applications -n argocd
           kubectl get ns
           kubectl get pods -n andy-demo
-          minikube service -n andy-demo app-service
+          
