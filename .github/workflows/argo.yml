@@ -1,0 +1,30 @@
+name: deploy on local minikube cluster
+on:
+  push:
+    branches: 
+      - main
+    paths:
+      - 'ArgoCD/**'
+      - 'Kubernetes/**'
+  workflow_dispatch:    
+
+jobs:
+  deploy_and_check_pods:
+    runs-on: self-hosted
+
+    steps:
+      - name: start minikube
+        run: minikube start
+
+      - name: Apply Kubernetes Manifest
+        run: |
+          cd /Users/andyhu/Documents/Generac/andy-k8s-learning-demo/ArgoCD
+          ls
+          kubectl apply -f demoapp.yml
+      
+      - name: Check Pods
+        run: |
+          kubectl get applications -n argocd
+          kubectl get ns
+          kubectl get pods -n andy-demo
+          minikube service -n andy-demo app-service
