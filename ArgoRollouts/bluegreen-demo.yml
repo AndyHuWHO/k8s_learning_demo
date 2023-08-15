@@ -77,12 +77,12 @@ data:
   01-goat.sql: |
     DROP TABLE IF EXISTS goatplayers;
     CREATE TABLE goatplayers (player text);
-    INSERT INTO goatplayers VALUES ('MJ1');
-    INSERT INTO goatplayers VALUES ('MJ2');
-    INSERT INTO goatplayers VALUES ('MJ3');
-    INSERT INTO goatplayers VALUES ('MJ4');
-    INSERT INTO goatplayers VALUES ('MJ5');
-    INSERT INTO goatplayers VALUES ('MJ6');
+    INSERT INTO goatplayers VALUES ('MJ');
+    INSERT INTO goatplayers VALUES ('LBJ');
+    INSERT INTO goatplayers VALUES ('KOBE Brayant');
+    INSERT INTO goatplayers VALUES ('Shaq Oneal');
+    INSERT INTO goatplayers VALUES ('Tim Duncan');
+    INSERT INTO goatplayers VALUES ('Stephen Curry');
 
     
 
@@ -230,7 +230,7 @@ spec:
                   name: quick-pass
                   key: password
             - name: WELCOME
-              value: Welcome to Andy Hu's NBA Top 6 GOAT Player rating!!!!! 
+              value: Welcome to Andy Hu's NBA Top 5 GOAT Player rating!!!!! 
   strategy:
     blueGreen:
       activeService: app-service-active

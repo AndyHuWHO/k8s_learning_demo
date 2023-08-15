@@ -1,11 +1,11 @@
 name: deploy on local minikube cluster
 on:
-  push:
-    branches: 
-      - main
-    paths:
-      - 'app.py'
-      - 'Kubernetes/**'
+  # push:
+  #   branches: 
+  #     - main
+  #   paths:
+  #     - 'app.py'
+  #     - 'Kubernetes/**'
   workflow_dispatch:    
 
 jobs:

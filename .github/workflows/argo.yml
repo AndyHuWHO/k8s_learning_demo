@@ -1,11 +1,11 @@
 name: deploy argocd demo app
 on:
-  push:
-    branches: 
-      - main
-    paths:
-      - 'ArgoCD/**'
-      - 'Kubernetes/**'
+  # push:
+  #   branches: 
+  #     - main
+  #   paths:
+  #     - 'ArgoCD/**'
+  #     - 'Kubernetes/**'
   workflow_dispatch:    
 
 jobs:

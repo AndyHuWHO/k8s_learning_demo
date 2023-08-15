@@ -78,12 +78,11 @@ data:
     DROP TABLE IF EXISTS goatplayers;
     CREATE TABLE goatplayers (player text);
     INSERT INTO goatplayers VALUES ('MJ');
-    INSERT INTO goatplayers VALUES ('MJ');
-    INSERT INTO goatplayers VALUES ('MJ');
-    INSERT INTO goatplayers VALUES ('MJ');
-    INSERT INTO goatplayers VALUES ('MJ');
-    INSERT INTO goatplayers VALUES ('MJ');
-
+    INSERT INTO goatplayers VALUES ('LBJ');
+    INSERT INTO goatplayers VALUES ('KOBE Brayant');
+    INSERT INTO goatplayers VALUES ('Shaq Oneal');
+    INSERT INTO goatplayers VALUES ('Tim Duncan');
+    INSERT INTO goatplayers VALUES ('Stephen Curry');
     
 
 
@@ -216,11 +215,11 @@ spec:
     spec:
       containers:
         - name: app
-          image: andyyelinhu/argo-rollout-demo:6players
+          image: andyyelinhu/argo-rollout-demo:5players
           imagePullPolicy: Always
           env:
             - name: MARIA_HOST
-              value: 'db-service2.andy-rollout-demo.svc.cluster.local'
+              value: 'db-service.andy-rollout-demo.svc.cluster.local'
             - name: MARIA_USER
               value: root
             - name: MARIA_PASS
@@ -229,7 +228,7 @@ spec:
                   name: quick-pass
                   key: password
             - name: WELCOME
-              value: Welcome to Andy Hu's NBA Top 6 GOAT Player rating!!!! 
+              value: Welcome to Andy Hu's NBA Top 5 GOAT Player rating!!!! 
   strategy:
     canary:
      steps:
