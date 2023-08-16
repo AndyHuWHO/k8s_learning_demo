@@ -131,7 +131,7 @@ spec:
         #     claimName: mariadb-pvc
         - name: init-scripts
           configMap:
-            name: db-init-scripts
+            name: db-init-scripts-1
 
 ---
 
@@ -184,7 +184,7 @@ spec:
                   name: quick-pass
                   key: password
             - name: WELCOME
-              value: Welcome to Andy Hu's NBA Top 5 GOAT Player rating!!!!! 
+              value: Welcome to Andy Hu's NBA Top 6 GOAT Player rating!!!!! 
 
 
 ---
