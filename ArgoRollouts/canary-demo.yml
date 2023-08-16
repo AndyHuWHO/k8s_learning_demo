@@ -204,7 +204,7 @@ metadata:
   name: rollout-app
   namespace: andy-rollout-demo
 spec:
-  replicas: 4
+  replicas: 5
   selector:
     matchLabels:
       app: app
