@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default 
   source:
-    repoURL: https://github.com/neurio/andy-k8s-learning-demo.git
+    repoURL: https://github.com/AndyHuWHO/k8s_learning_demo.git
     targetRevision: HEAD
     path: Kubernetes
   destination: 

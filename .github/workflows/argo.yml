@@ -18,7 +18,7 @@ jobs:
 
       - name: Apply Kubernetes Manifest
         run: |
-          cd /Users/andyhu/Documents/Generac/andy-k8s-learning-demo/ArgoCD
+          cd /Users/andyhu/Documents/Generac/Generac/andy-k8s-learning-demo/ArgoCD
           ls
           kubectl apply -f demoapp.yml
       
